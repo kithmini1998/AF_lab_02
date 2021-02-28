@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+<body>
+    <script type="text/javascript">
+    //Question 1
+    //Ascynchronous call
+    //setTimeout
+    function getValue () {               //here the answer will be 0. Not 10
+        let value = 0;
+        setTimeout(function (){
+            value = 10;
+
+        }, 1000);
+        return value;
+    }
+    console.log(getValue());
+    //After adding the call back
+    function getValue (callback) {
+        let value = 0;                  //after the callback function now this will be 10
+        setTimeout(function (){
+            value = 10;
+            callback(value);
+
+        }, 1000);
+        
+    }
+    //here call back function is passed as a parameter
+    getValue(function(value){
+        console.log(value);
+    });
+    //
+    function getNewValue (value, callback) {            
+        setTimeout(function (){
+            callback(value * 100);
+        }, 1000);
+    }
+    
+    getValue(function(value){
+        getNewValue(value, function (newValue){
+            console.log(newValue);
+        })
+    });
+    //////////////////////////////////////////////////////////////////////////////////
+    //working with promise
+    let promise = new Promise(function (resolve, reject){
+        resolve();
+        reject();
+    })
+    function getValue (callback) {
+        let value = 0;   
+        //resolve is for success scenarios
+        //reject for errors
+        return Promise(function (resolve, reject){
+            //we are doing the asynchronous method inside this function
+            setTimeout(function (){
+            value = 10;
+            resolve(value);
+
+            }, 1000);
+        });
+       
+        
+    }
+    
+    
+    
+    </script>
+</body>
+</html>
